@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useGame } from "./hooks/useGame";
+import "./App.css";
 
 export default function App() {
   const {
@@ -14,132 +15,101 @@ export default function App() {
 
   const [input, setInput] = useState("");
 
+  // Ref for audio element
+  const clickSound = useRef(null);
+
+  function playClick() {
+    if (clickSound.current) {
+      clickSound.current.currentTime = 0; // rewind
+      clickSound.current.play();
+    }
+  }
+
   function handleNumberClick(num) {
     if (status !== "playing") return;
     setInput((prev) => prev + num);
+    playClick();
   }
 
   function handleClear() {
     setInput("");
+    playClick();
   }
 
   function handleSubmit() {
     if (!input) return;
     submitAnswer(input);
     setInput("");
+    playClick();
   }
 
   return (
-    <div style={styles.container}>
-      <h2>Little Professor</h2>
+    <div className="app-container">
+      <audio ref={clickSound} src="/sounds/click.mp3" preload="auto" />
+      <div className="game-box">
+        <h2 className="title">Little Professor</h2>
 
-      {status !== "gameover" && (
-        <>
-          <div style={styles.problem}>
-            {current.a} {current.operator} {current.b} = ?
-          </div>
-
-          <div style={styles.userInput}>{input || "_"}</div>
-
-          {status === "showingAnswer" && (
-            <div style={styles.correctAnswer}>
-              Correct Answer: {current.answer}
+        {status !== "gameover" && (
+          <>
+            <div className="problem">
+              {current.a} {current.operator} {current.b} = ?
             </div>
-          )}
 
-          {attempt === 1 && status === "playing" && (
-            <div style={styles.retry}>Try again!</div>
-          )}
+            <div className="user-input">{input || "_"}</div>
 
-          <div style={styles.keypad}>
-            {[7,8,9,4,5,6,1,2,3].map((n) => (
-              <button
-                key={n}
-                style={styles.keypadButton}
-                onClick={() => handleNumberClick(n)}
-              >
-                {n}
+            {status === "showingAnswer" && (
+              <div className="correct-answer">
+                Correct Answer: {current.answer}
+              </div>
+            )}
+
+            {attempt === 1 && status === "playing" && (
+              <div className="retry">Try again!</div>
+            )}
+
+            <div className="keypad">
+              {[7, 8, 9, 4, 5, 6, 1, 2, 3].map((n) => (
+                <button
+                  key={n}
+                  className="keypad-button"
+                  onClick={() => handleNumberClick(n)}
+                >
+                  {n}
+                </button>
+              ))}
+
+              <button className="keypad-button" onClick={handleClear}>
+                C
               </button>
-            ))}
 
-            <button style={styles.keypadButton} onClick={handleClear}>
-              C
+              <button
+                className="keypad-button"
+                onClick={() => handleNumberClick(0)}
+              >
+                0
+              </button>
+
+              <button className="keypad-button" onClick={handleSubmit}>
+                OK
+              </button>
+            </div>
+
+            <div className="info">
+              Question: {questionNumber} / 10
+            </div>
+          </>
+        )}
+
+        {status === "gameover" && (
+          <>
+            <h3>Game Over</h3>
+            <p>Score: {score} / 10</p>
+            <button className="keypad-button" onClick={resetGame}>
+              Play Again
             </button>
-
-            <button
-              style={styles.keypadButton}
-              onClick={() => handleNumberClick(0)}
-            >
-              0
-            </button>
-
-            <button style={styles.keypadButton} onClick={handleSubmit}>
-              OK
-            </button>
-          </div>
-
-          <div style={styles.info}>
-            Question: {questionNumber} / 10
-          </div>
-        </>
-      )}
-
-      {status === "gameover" && (
-        <>
-          <h3>Game Over</h3>
-          <p>Score: {score} / 10</p>
-          <button style={styles.keypadButton} onClick={resetGame}>
-            Play Again
-          </button>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    height: "100vh",
-    background: "black",
-    color: "#00ff00",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    fontFamily: "monospace",
-    textAlign: "center",
-  },
-  problem: {
-    fontSize: "2.5rem",
-    margin: "1rem",
-  },
-  userInput: {
-    fontSize: "2rem",
-    marginBottom: "1rem",
-    minHeight: "40px",
-  },
-  correctAnswer: {
-    color: "#ff4444",
-    marginBottom: "1rem",
-  },
-  retry: {
-    color: "#ffaa00",
-    marginBottom: "1rem",
-  },
-  keypad: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 70px)",
-    gap: "10px",
-  },
-  keypadButton: {
-    fontSize: "1.4rem",
-    padding: "15px",
-    backgroundColor: "#111",
-    color: "#00ff00",
-    border: "2px solid #00ff00",
-    cursor: "pointer",
-  },
-  info: {
-    marginTop: "1rem",
-  },
-};

@@ -1,42 +1,79 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Full screen background */
+.app-container {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: black;
+  color: #00ff00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+}
+
+/* Centered game box */
+.game-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Title */
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Math problem */
+.problem {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Input display */
+.user-input {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  min-height: 40px;
 }
 
-.card {
-  padding: 2em;
+/* Messages */
+.correct-answer {
+  color: #ff4444;
+  margin-bottom: 1rem;
 }
 
-.read-the-docs {
-  color: #888;
+.retry {
+  color: #ffaa00;
+  margin-bottom: 1rem;
+}
+
+/* Keypad grid */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Buttons */
+.keypad-button {
+  font-size: 1.5rem;
+  padding: 18px;
+  background-color: #111;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+/* Press animation */
+.keypad-button:active {
+  transform: scale(0.95);
+  background-color: #003300;
+}
+
+/* Footer info */
+.info {
+  margin-top: 1rem;
 }

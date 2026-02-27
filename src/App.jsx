@@ -45,7 +45,7 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <audio ref={clickSound} src="/sounds/click.mp3" preload="auto" />
+      <audio ref={clickSound} public="/sounds/click.mp3" preload="auto" />
       <div className="game-box">
         <h2 className="title">Little Professor</h2>
 

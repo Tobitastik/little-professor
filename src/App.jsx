@@ -18,12 +18,17 @@ export default function App() {
   // Ref for audio element
   const clickSound = useRef(null);
 
-  function playClick() {
-    if (clickSound.current) {
-      clickSound.current.currentTime = 0; // rewind
-      clickSound.current.play();
+function playClick() {
+  if (clickSound.current) {
+    clickSound.current.currentTime = 0; // rewind
+    const playPromise = clickSound.current.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.log("Audio play failed:", err);
+      });
     }
   }
+}
 
   function handleNumberClick(num) {
     if (status !== "playing") return;
@@ -45,7 +50,7 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <audio ref={clickSound} public="/sounds/click.mp3" preload="auto" />
+      <audio ref={clickSound} src="/sounds/click.wav" preload="auto" />
       <div className="game-box">
         <h2 className="title">Little Professor</h2>
 

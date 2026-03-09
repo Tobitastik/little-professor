@@ -167,7 +167,7 @@ export default function App() {
               alt="Little Unicorn"
               className="unicorn"
               style={{
-                transform: `translateX(${pos}px) scaleX(${direction === 1 ? 1 : -1})`
+                transform: `translateX(${pos}px) scaleX(${direction === 1 ? -1 : 1})`
               }}
             />
 

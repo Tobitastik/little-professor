@@ -144,7 +144,7 @@ export default function App() {
             <img
               src="/little-professor/images/unicorn.png"
               alt="Little Professor"
-              className="professor-bounce"
+              className="unicorn-bounce"
             />
 
             <p>Score: {score} / 10</p>

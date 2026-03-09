@@ -160,6 +160,7 @@ export default function App() {
 
         {status === "gameover" && (
           <>
+            {score === 10 && <Confetti count={100} />}
             <h3>Game Over</h3>
 
             <img

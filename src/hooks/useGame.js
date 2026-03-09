@@ -19,7 +19,7 @@ export function useGame({ difficulty }) {
       a = a - (a % b); // make divisible
     }
 
-    const answer = eval(`${a} ${operator} ${b}`);
+    const answer = calculate(a, operator, b);
     return { a, b, operator, answer };
   }
 

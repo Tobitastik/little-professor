@@ -20,6 +20,26 @@ export function useGame() {
   const [attempt, setAttempt] = useState(0);
   const [status, setStatus] = useState("playing"); // playing | showingAnswer | gameover
   const [current, setCurrent] = useState(generateQuestion());
+  const DIFFICULTY_SETTINGS = {
+  easy: { max: 10, operators: ["+"] },
+  medium: { max: 50, operators: ["+", "-"] },
+  hard: { max: 100, operators: ["+", "-", "*"] },
+  hardest: { max: 100, operators: ["+", "-", "*", "/"] },
+  };
+
+  function generateProblem({ maxNumber, operators }) {
+  let a = Math.floor(Math.random() * (maxNumber + 1));
+  let b = Math.floor(Math.random() * (maxNumber + 1));
+  const operator = operators[Math.floor(Math.random() * operators.length)];
+
+  if (operator === "/") {
+    b = b || 1; // replace 0 with 1
+    a = a - (a % b); // make divisible
+  }
+
+  const answer = eval(`${a} ${operator} ${b}`);
+  return { a, b, operator, answer };
+  }
 
   function nextQuestion() {
     const next = questionNumber + 1;

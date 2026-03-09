@@ -28,7 +28,7 @@ export default function App() {
         playLongEndSound();
       }
     }
-  }, [status]);
+  }, [status, score]);
 
   function playClick() {
     if (clickSound.current) {
@@ -81,8 +81,8 @@ export default function App() {
   return (
     <div className="app-container">
       <audio ref={clickSound} src="/little-professor/sounds/click.wav" preload="auto" />
-      <audio ref={shortEndSound} src="/little-professor/sounds/fail.wav" preload="auto" />
-      <audio ref={longEndSound} src="/little-professor/sounds/perfect.wav" preload="auto" />
+      <audio ref={shortEndSound} src="/little-professor/sounds/shortfanfare.wav" preload="auto" />
+      <audio ref={longEndSound} src="/little-professor/sounds/fanfare.wav" preload="auto" />
       <div className="game-box">
         <h2 className="title">Little Professor</h2>
 

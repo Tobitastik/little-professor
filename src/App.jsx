@@ -140,6 +140,14 @@ export default function App() {
         {status === "gameover" && (
           <>
             <h3>Game Over</h3>
+
+            <img
+              src="/little-professor/images/unicorn.png"
+              alt="Little Professor"
+              className="professor-bounce"
+            />
+
+            <p>Score: {score} / 10</p>
             <p>Score: {score} / 10</p>
             <button className="keypad-button" onClick={resetGame}>
               Play Again

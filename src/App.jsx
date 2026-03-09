@@ -146,8 +146,6 @@ export default function App() {
               alt="Little Professor"
               className="unicorn-bounce"
             />
-
-            <p>Score: {score} / 10</p>
             <p>Score: {score} / 10</p>
             <button className="keypad-button" onClick={resetGame}>
               Play Again

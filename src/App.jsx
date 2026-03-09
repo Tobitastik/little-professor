@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useGame } from "./hooks/useGame";
 import "./App.css";
 
@@ -17,18 +17,48 @@ export default function App() {
 
   // Ref for audio element
   const clickSound = useRef(null);
+  const shortEndSound = useRef(null);
+  const longEndSound = useRef(null);
 
-function playClick() {
-  if (clickSound.current) {
-    clickSound.current.currentTime = 0; // rewind
-    const playPromise = clickSound.current.play();
-    if (playPromise !== undefined) {
-      playPromise.catch((err) => {
+  useEffect(() => {
+    if (status === "gameover") {
+      if (score <= 9) {
+        playShortEndSound();
+      } else {
+        playLongEndSound();
+      }
+    }
+  }, [status]);
+
+  function playClick() {
+    if (clickSound.current) {
+      clickSound.current.currentTime = 0; // rewind
+      const playPromise = clickSound.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.log("Audio play failed:", err);
+        });
+      }
+    }
+  }
+
+  function playShortEndSound() {
+    if (shortEndSound.current) {
+      shortEndSound.current.currentTime = 0;
+      shortEndSound.current.play().catch((err) => {
         console.log("Audio play failed:", err);
       });
     }
   }
-}
+
+  function playLongEndSound() {
+    if (longEndSound.current) {
+      longEndSound.current.currentTime = 0;
+      longEndSound.current.play().catch((err) => {
+        console.log("Audio play failed:", err);
+      });
+    }
+  }
 
   function handleNumberClick(num) {
     if (status !== "playing") return;
@@ -51,6 +81,8 @@ function playClick() {
   return (
     <div className="app-container">
       <audio ref={clickSound} src="/little-professor/sounds/click.wav" preload="auto" />
+      <audio ref={shortEndSound} src="/little-professor/sounds/fail.wav" preload="auto" />
+      <audio ref={longEndSound} src="/little-professor/sounds/perfect.wav" preload="auto" />
       <div className="game-box">
         <h2 className="title">Little Professor</h2>
 

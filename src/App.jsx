@@ -88,18 +88,17 @@ export default function App() {
       <audio ref={shortEndSound} src="/little-professor/sounds/shortfanfare.wav" preload="auto" />
       <audio ref={longEndSound} src="/little-professor/sounds/fanfare.wav" preload="auto" />
 
-      <select
-        value={difficulty}
-        onChange={(e) => setDifficulty(e.target.value)}
-        className="keypad-button"
-      >
-        <option value="easy">Easy (+)</option>
-        <option value="medium">Medium (+, -)</option>
-        <option value="hard">Hard (+, -, *)</option>
-        <option value="extreme">Extreme (+, -, *, /)</option>
-      </select>
-
       <div className="game-box">
+        <select
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
+          className="keypad-button"
+        >
+          <option value="easy">Easy (+)</option>
+          <option value="medium">Medium (+, -)</option>
+          <option value="hard">Hard (+, -, *)</option>
+          <option value="extreme">Extreme (+, -, *, /)</option>
+        </select>
         <h2 className="title">Little Professor</h2>
 
 

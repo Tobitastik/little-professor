@@ -82,20 +82,11 @@
   width: 150px;
   height: auto;
   transition: transform 0.18s linear;
+  animation: hop 0.6s infinite alternate;
 }
 
-.unicorn-bounce {
-  width: 120px;
-  height: auto;
-  margin: 10px 0;
-  animation: bounce 0.6s infinite alternate;
-}
-
-@keyframes bounce {
-  0% {
-    transform: translateY(0px);
-  }
-  100% {
-    transform: translateY(-8px);
-  }
+@keyframes hop {
+  0% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+  100% { translate: 0 0; }
 }

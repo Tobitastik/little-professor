@@ -60,6 +60,22 @@ export default function App() {
     }
   }
 
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+
+  useEffect(() => {
+    if (status !== "gameover") return;
+
+    const interval = setInterval(() => {
+      setX(Math.random() * 40 - 20);
+      setY(Math.random() * 40 - 20);
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, [status]);
+
+
+
   function handleNumberClick(num) {
     if (status !== "playing") return;
     setInput((prev) => prev + num);
@@ -141,11 +157,15 @@ export default function App() {
           <>
             <h3>Game Over</h3>
 
-            <img
-              src="/little-professor/images/unicorn.png"
-              alt="Little Professor"
-              className="unicorn-bounce"
-            />
+            <div className="unicorn-container">
+              <img
+                src="/little-professor/images/unicorn.png"
+                alt="Little Unicorn"
+                className="unicorn"
+                style={{ transform: `translate(${x}px, ${y}px)` }}
+              />
+            </div>
+
             <p>Score: {score} / 10</p>
             <button className="keypad-button" onClick={resetGame}>
               Play Again

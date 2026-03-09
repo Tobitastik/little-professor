@@ -83,6 +83,7 @@
   height: auto;
   transition: transform 0.18s linear;
   animation: hop 0.6s infinite alternate;
+  transform: scale(-1);
 }
 
 @keyframes hop {

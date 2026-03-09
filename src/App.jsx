@@ -50,7 +50,7 @@ function playClick() {
 
   return (
     <div className="app-container">
-      <audio ref={clickSound} src="/sounds/click.wav" preload="auto" />
+      <audio ref={clickSound} src="/little-professor/sounds/click.wav" preload="auto" />
       <div className="game-box">
         <h2 className="title">Little Professor</h2>
 

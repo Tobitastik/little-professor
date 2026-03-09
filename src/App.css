@@ -44,7 +44,7 @@
 }
 
 .retry {
-  color: #ffaa00;
+  color: #00ff00;
   margin-bottom: 1rem;
 }
 
@@ -61,7 +61,7 @@
   font-size: 1.5rem;
   padding: 18px;
   background-color: #111;
-  color: #00ff00;
+  color: #ffaa00;
   border: 2px solid #00ff00;
   cursor: pointer;
   transition: all 0.1s ease;

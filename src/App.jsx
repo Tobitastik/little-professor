@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useGame } from "./hooks/useGame";
 import "./App.css";
+import Confetti from "./Confetti";
 
 export default function App() {
   const {

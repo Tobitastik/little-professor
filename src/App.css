@@ -77,3 +77,9 @@
 .info {
   margin-top: 1rem;
 }
+
+.unicorn-bounce {
+  width: 150px;
+  height: auto;
+  animation: bounce 1s infinite;
+}

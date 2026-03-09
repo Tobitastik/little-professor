@@ -1,77 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const TOTAL_QUESTIONS = 10;
+export function useGame({ difficulty }) {
+  const TOTAL_QUESTIONS = 10;
 
-function generateQuestion(max = 10) {
-  const a = Math.floor(Math.random() * max);
-  const b = Math.floor(Math.random() * max);
-
-  return {
-    a,
-    b,
-    operator: "+",
-    answer: a + b,
-  };
-}
-
-export function useGame() {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [score, setScore] = useState(0);
   const [attempt, setAttempt] = useState(0);
-  const [status, setStatus] = useState("playing"); // playing | showingAnswer | gameover
-  const [current, setCurrent] = useState(generateQuestion());
-  const DIFFICULTY_SETTINGS = {
-  easy: { max: 10, operators: ["+"] },
-  medium: { max: 50, operators: ["+", "-"] },
-  hard: { max: 100, operators: ["+", "-", "*"] },
-  hardest: { max: 100, operators: ["+", "-", "*", "/"] },
-  };
+  const [status, setStatus] = useState("playing");
+  const [current, setCurrent] = useState(generateProblem(difficulty));
 
   function generateProblem({ maxNumber, operators }) {
-  let a = Math.floor(Math.random() * (maxNumber + 1));
-  let b = Math.floor(Math.random() * (maxNumber + 1));
-  const operator = operators[Math.floor(Math.random() * operators.length)];
+    let a = Math.floor(Math.random() * (maxNumber + 1));
+    let b = Math.floor(Math.random() * (maxNumber + 1));
+    const operator = operators[Math.floor(Math.random() * operators.length)];
 
-  if (operator === "/") {
-    b = b || 1; // replace 0 with 1
-    a = a - (a % b); // make divisible
-  }
+    if (operator === "/") {
+      b = b || 1; // replace 0 with 1
+      a = a - (a % b); // make divisible
+    }
 
-  const answer = eval(`${a} ${operator} ${b}`);
-  return { a, b, operator, answer };
+    const answer = eval(`${a} ${operator} ${b}`);
+    return { a, b, operator, answer };
   }
 
   function nextQuestion() {
     const next = questionNumber + 1;
-
     if (next > TOTAL_QUESTIONS) {
       setStatus("gameover");
       return;
     }
-
     setQuestionNumber(next);
     setAttempt(0);
-    setCurrent(generateQuestion());
+    setCurrent(generateProblem(difficulty));
     setStatus("playing");
   }
 
   function submitAnswer(input) {
     if (status !== "playing") return;
-
     const numericInput = Number(input);
 
     if (numericInput === current.answer) {
       setScore((s) => s + 1);
       nextQuestion();
     } else {
-      if (attempt === 0) {
-        setAttempt(1); // allow second try
-      } else {
+      if (attempt === 0) setAttempt(1);
+      else {
         setStatus("showingAnswer");
-
-        setTimeout(() => {
-          nextQuestion();
-        }, 1500);
+        setTimeout(nextQuestion, 1500);
       }
     }
   }
@@ -81,8 +56,17 @@ export function useGame() {
     setScore(0);
     setAttempt(0);
     setStatus("playing");
-    setCurrent(generateQuestion());
+    setCurrent(generateProblem(difficulty));
   }
+
+  // regenerate current problem when difficulty changes mid-game
+  useEffect(() => {
+    setCurrent(generateProblem(difficulty));
+    setQuestionNumber(1);
+    setScore(0);
+    setAttempt(0);
+    setStatus("playing");
+  }, [difficulty]);
 
   return {
     current,

@@ -114,3 +114,17 @@
   0% { transform: translateY(0) rotate(0deg); }
   100% { transform: translateY(100vh) rotate(360deg); }
 }
+
+select.keypad-button {
+  background-color: #111;
+  color: #ffaa00;
+  border: 2px solid #ffaa00;
+  padding: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  text-align: center;
+}
+select.keypad-button:focus {
+  outline: none;
+  background-color: #003300;
+}

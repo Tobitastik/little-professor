@@ -78,6 +78,12 @@
   margin-top: 1rem;
 }
 
+.unicorn {
+  width: 150px;
+  height: auto;
+  transition: transform 0.18s linear;
+}
+
 .unicorn-bounce {
   width: 120px;
   height: auto;

@@ -93,15 +93,3 @@
     transform: translateY(-8px);
   }
 }
-
-.unicorn-container {
-  height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.unicorn {
-  width: 100px;
-  transition: transform 0.25s ease;
-}

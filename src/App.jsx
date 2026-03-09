@@ -60,21 +60,26 @@ export default function App() {
     }
   }
 
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
+  const [pos, setPos] = useState(-40);
+  const [direction, setDirection] = useState(1);
 
   useEffect(() => {
     if (status !== "gameover") return;
 
     const interval = setInterval(() => {
-      setX(Math.random() * 40 - 20);
-      setY(Math.random() * 40 - 20);
-    }, 300);
+      setPos((prev) => {
+        let next = prev + direction * 10;
+
+        if (next > 40 || next < -40) {
+          setDirection((d) => -d);
+        }
+
+        return next;
+      });
+    }, 200);
 
     return () => clearInterval(interval);
-  }, [status]);
-
-
+  }, [status, direction]);
 
   function handleNumberClick(num) {
     if (status !== "playing") return;
@@ -157,14 +162,14 @@ export default function App() {
           <>
             <h3>Game Over</h3>
 
-            <div className="unicorn-container">
-              <img
-                src="/little-professor/images/unicorn.png"
-                alt="Little Unicorn"
-                className="unicorn"
-                style={{ transform: `translate(${x}px, ${y}px)` }}
-              />
-            </div>
+            <img
+              src="/little-professor/images/unicorn.png"
+              alt="Little Unicorn"
+              className="unicorn"
+              style={{
+                transform: `translateX(${pos}px) scaleX(${direction === 1 ? 1 : -1})`
+              }}
+            />
 
             <p>Score: {score} / 10</p>
             <button className="keypad-button" onClick={resetGame}>

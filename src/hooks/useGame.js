@@ -1,5 +1,16 @@
 import { useState, useEffect } from "react";
 
+// Safe calculation function
+function calculate(a, operator, b) {
+  switch (operator) {
+    case "+": return a + b;
+    case "-": return a - b;
+    case "*": return a * b;
+    case "/": return b !== 0 ? a / b : 0;
+    default: return 0;
+  }
+}
+
 export function useGame({ difficulty }) {
   const TOTAL_QUESTIONS = 10;
 
@@ -7,7 +18,6 @@ export function useGame({ difficulty }) {
   const [score, setScore] = useState(0);
   const [attempt, setAttempt] = useState(0);
   const [status, setStatus] = useState("playing");
-  const [current, setCurrent] = useState(generateProblem(difficulty));
 
   function generateProblem({ maxNumber, operators }) {
     let a = Math.floor(Math.random() * (maxNumber + 1));
@@ -15,13 +25,15 @@ export function useGame({ difficulty }) {
     const operator = operators[Math.floor(Math.random() * operators.length)];
 
     if (operator === "/") {
-      b = b || 1; // replace 0 with 1
-      a = a - (a % b); // make divisible
+      b = b || 1;           // replace 0 with 1
+      a = a - (a % b);      // make divisible
     }
 
     const answer = calculate(a, operator, b);
     return { a, b, operator, answer };
   }
+
+  const [current, setCurrent] = useState(generateProblem(difficulty));
 
   function nextQuestion() {
     const next = questionNumber + 1;

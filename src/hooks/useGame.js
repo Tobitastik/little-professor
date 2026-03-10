@@ -29,6 +29,12 @@ export function useGame({ difficulty }) {
       a = a - (a % b);      // make divisible
     }
 
+    if (difficulty === "easy" || difficulty === "medium") {
+      if (operator === "-") {
+        if (a < b) [a, b] = [b, a]; // ensure non-negative result
+      }
+    }
+
     const answer = calculate(a, operator, b);
     return { a, b, operator, answer };
   }

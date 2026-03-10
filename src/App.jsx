@@ -118,11 +118,11 @@ export default function App() {
             <div className="keypad">
               {[7, 8, 9, 4, 5, 6, 1, 2, 3].map((n) => (
                 <button key={n} className="keypad-button" onClick={() => handleNumberClick(n)}>{n}</button>
-              ))}
-              <button className="keypad-button" onClick={handleClear}>C</button>
-              <button className="keypad-button" onClick={() => handleNumberClick(0)}>0</button>
-              <button className="keypad-button" onClick={handleSubmit}>OK</button>              
+              ))}           
               <button className="keypad-button" onClick={() => handleNumberClick("-")}>-</button>
+              <button className="keypad-button" onClick={() => handleNumberClick(0)}>0</button>
+              <button className="keypad-button" onClick={handleSubmit}>OK</button>
+              <button className="keypad-button" onClick={handleClear}>C</button>              
             </div>
 
             <div className="info">Question: {questionNumber} / 10</div>

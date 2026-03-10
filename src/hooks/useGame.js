@@ -25,13 +25,13 @@ export function useGame({ difficulty }) {
     const operator = operators[Math.floor(Math.random() * operators.length)];
 
     if (operator === "/") {
-      b = b || 1;           // replace 0 with 1
-      a = a - (a % b);      // make divisible
+      b = Math.max(1, b);
+      a = b * Math.floor(Math.random() * maxNumber);
     }
 
-    if (difficulty === "easy" || difficulty === "medium") {
-      if (operator === "-") {
-        if (a < b) [a, b] = [b, a]; // ensure non-negative result
+    if (!operators.includes("*") && !operators.includes("/")) {
+      if (operator === "-" && a < b) {
+        [a, b] = [b, a];
       }
     }
 

@@ -120,9 +120,9 @@ export default function App() {
                 <button key={n} className="keypad-button" onClick={() => handleNumberClick(n)}>{n}</button>
               ))}
               <button className="keypad-button" onClick={handleClear}>C</button>
-              <button className="keypad-button" onClick={() => handleNumberClick("-")}>-</button>
               <button className="keypad-button" onClick={() => handleNumberClick(0)}>0</button>
-              <button className="keypad-button" onClick={handleSubmit}>OK</button>
+              <button className="keypad-button" onClick={handleSubmit}>OK</button>              
+              <button className="keypad-button" onClick={() => handleNumberClick("-")}>-</button>
             </div>
 
             <div className="info">Question: {questionNumber} / 10</div>
